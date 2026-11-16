@@ -1,0 +1,366 @@
+/*
+ * Synhigh Code Highlighter
+ * Lightweight syntax highlighting with auto language detection, line numbers, and a copy button.
+ * Version: v1.0.0
+ * Author: Raymond Baghumian
+*/
+
+/* ---- Theme palettes -------------------------------------------------------------------- */
+.synhigh,
+.synhigh-theme-dark {
+	--synhigh-bg: #1e1e2e;
+	--synhigh-fg: #cdd6f4;
+	--synhigh-muted: #9399b2;
+	--synhigh-border: #313244;
+	--synhigh-lineno: #585b70;
+	--synhigh-selection: rgba(137, 180, 250, .28);
+	--synhigh-comment: #6c7086;
+	--synhigh-keyword: #cba6f7;
+	--synhigh-string: #a6e3a1;
+	--synhigh-number: #fab387;
+	--synhigh-fn: #89b4fa;
+	--synhigh-var: #f38ba8;
+	--synhigh-type: #f9e2af;
+	--synhigh-const: #fab387;
+	--synhigh-op: #89dceb;
+	--synhigh-punct: #9399b2;
+	--synhigh-tag: #f38ba8;
+	--synhigh-attr: #f9e2af;
+	--synhigh-builtin: #94e2d5;
+	--synhigh-meta: #f5c2e7;
+	--synhigh-regex: #f2cdcd;
+	--synhigh-inserted: #a6e3a1;
+	--synhigh-deleted: #f38ba8;
+}
+
+.synhigh-theme-light {
+	--synhigh-bg: #fafafa;
+	--synhigh-fg: #383a42;
+	--synhigh-muted: #696c77;
+	--synhigh-border: #e4e4e7;
+	--synhigh-lineno: #a0a1a7;
+	--synhigh-selection: rgba(64, 120, 242, .18);
+	--synhigh-comment: #8a8d99;
+	--synhigh-keyword: #a626a4;
+	--synhigh-string: #50a14f;
+	--synhigh-number: #b76b01;
+	--synhigh-fn: #4078f2;
+	--synhigh-var: #e45649;
+	--synhigh-type: #b76b01;
+	--synhigh-const: #986801;
+	--synhigh-op: #0184bc;
+	--synhigh-punct: #696c77;
+	--synhigh-tag: #e45649;
+	--synhigh-attr: #986801;
+	--synhigh-builtin: #0184bc;
+	--synhigh-meta: #a626a4;
+	--synhigh-regex: #ca1243;
+	--synhigh-inserted: #50a14f;
+	--synhigh-deleted: #e45649;
+}
+
+/* "auto" = dark palette by default, light palette when the visitor's OS prefers light. */
+@media (prefers-color-scheme: light) {
+	.synhigh-theme-auto {
+		--synhigh-bg: #fafafa;
+		--synhigh-fg: #383a42;
+		--synhigh-muted: #696c77;
+		--synhigh-border: #e4e4e7;
+		--synhigh-lineno: #a0a1a7;
+		--synhigh-selection: rgba(64, 120, 242, .18);
+		--synhigh-comment: #8a8d99;
+		--synhigh-keyword: #a626a4;
+		--synhigh-string: #50a14f;
+		--synhigh-number: #b76b01;
+		--synhigh-fn: #4078f2;
+		--synhigh-var: #e45649;
+		--synhigh-type: #b76b01;
+		--synhigh-const: #986801;
+		--synhigh-op: #0184bc;
+		--synhigh-punct: #696c77;
+		--synhigh-tag: #e45649;
+		--synhigh-attr: #986801;
+		--synhigh-builtin: #0184bc;
+		--synhigh-meta: #a626a4;
+		--synhigh-regex: #ca1243;
+		--synhigh-inserted: #50a14f;
+		--synhigh-deleted: #e45649;
+	}
+}
+
+.synhigh-theme-ember {
+	--synhigh-bg: #272822;
+	--synhigh-fg: #f8f8f2;
+	--synhigh-muted: #a6a68f;
+	--synhigh-border: #3e3d32;
+	--synhigh-lineno: #75715e;
+	--synhigh-selection: rgba(230, 219, 116, .22);
+	--synhigh-comment: #75715e;
+	--synhigh-keyword: #f92672;
+	--synhigh-string: #e6db74;
+	--synhigh-number: #ae81ff;
+	--synhigh-fn: #a6e22e;
+	--synhigh-var: #fd971f;
+	--synhigh-type: #66d9ef;
+	--synhigh-const: #ae81ff;
+	--synhigh-op: #f92672;
+	--synhigh-punct: #c2c2b0;
+	--synhigh-tag: #f92672;
+	--synhigh-attr: #a6e22e;
+	--synhigh-builtin: #66d9ef;
+	--synhigh-meta: #fd971f;
+	--synhigh-regex: #e6db74;
+	--synhigh-inserted: #a6e22e;
+	--synhigh-deleted: #f92672;
+}
+
+/* ---- Container -------------------------------------------------------------------------- */
+.synhigh {
+	position: relative;
+	box-sizing: border-box;
+	margin: 1.5em 0;
+	border: 1px solid var(--synhigh-border);
+	border-radius: 8px;
+	overflow: hidden;
+	background: var(--synhigh-bg);
+	color: var(--synhigh-fg);
+	direction: ltr;
+	/* code is always left-to-right, even on RTL (e.g. Persian) sites */
+	text-align: left;
+	unicode-bidi: isolate;
+	font-size: 14px;
+	line-height: 1.6;
+	text-shadow: none;
+	-webkit-text-size-adjust: 100%;
+}
+
+.synhigh *,
+.synhigh *::before,
+.synhigh *::after {
+	box-sizing: border-box;
+}
+
+.synhigh ::selection {
+	background: var(--synhigh-selection);
+}
+
+/* ---- Header bar (language label + copy button) ------------------------------------------ */
+.synhigh .synhigh-bar {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: .75em;
+	min-height: 2.4em;
+	margin: 0;
+	padding: .3em .5em .3em .9em;
+	border-bottom: 1px solid var(--synhigh-border);
+	background: rgba(127, 127, 127, .08);
+	font: 600 11px/1 ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+	letter-spacing: .06em;
+	text-transform: uppercase;
+	color: var(--synhigh-muted);
+}
+
+.synhigh .synhigh-label {
+	flex: 1 1 auto;
+	margin: 0;
+	padding: 0;
+	color: inherit;
+	background: none;
+}
+
+.synhigh .synhigh-copy {
+	all: unset;
+	/* neutralize theme/Gutenberg button styles */
+	box-sizing: border-box;
+	flex: 0 0 auto;
+	margin: 0 0 0 auto;
+	padding: .55em .9em;
+	border: 1px solid var(--synhigh-border);
+	border-radius: 5px;
+	background: transparent;
+	color: var(--synhigh-muted);
+	font: 600 11px/1 ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+	letter-spacing: .06em;
+	text-transform: uppercase;
+	cursor: pointer;
+	transition: color .15s, border-color .15s, background-color .15s;
+}
+
+.synhigh .synhigh-copy:hover {
+	color: var(--synhigh-fg);
+	border-color: var(--synhigh-muted);
+}
+
+.synhigh .synhigh-copy:focus-visible {
+	outline: 2px solid var(--synhigh-fn);
+	outline-offset: 1px;
+}
+
+.synhigh .synhigh-copy.is-done {
+	color: var(--synhigh-string);
+	border-color: var(--synhigh-string);
+}
+
+/* ---- Code area -------------------------------------------------------------------------- */
+.synhigh pre.synhigh-pre {
+	display: block;
+	margin: 0;
+	padding: 1em 0 !important;
+	border: 0 !important;
+	border-radius: 0;
+	background: transparent !important;
+	/* themes often force pre backgrounds with !important */
+	color: inherit;
+	box-shadow: none !important;
+	text-transform: none !important;
+	letter-spacing: normal !important;
+	word-spacing: normal !important;
+	text-indent: 0;
+	font-weight: 400;
+	font-style: normal;
+	overflow-x: auto;
+	white-space: pre;
+	/* keep spacing and indentation exactly as written */
+	word-wrap: normal;
+	overflow-wrap: normal;
+	word-break: normal;
+	tab-size: 4;
+	-moz-tab-size: 4;
+	font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+	font-size: inherit;
+	line-height: inherit;
+	text-align: left;
+	direction: ltr;
+	-webkit-overflow-scrolling: touch;
+}
+
+.synhigh pre.synhigh-pre code.synhigh-code {
+	display: block;
+	min-width: max-content;
+	/* every line spans the full scroll width */
+	margin: 0;
+	padding: 0 !important;
+	border: 0 !important;
+	border-radius: 0;
+	background: transparent !important;
+	box-shadow: none !important;
+	color: inherit;
+	font: inherit;
+	text-transform: none !important;
+	letter-spacing: normal !important;
+	word-spacing: normal !important;
+	white-space: inherit;
+	text-shadow: none;
+	counter-reset: synhigh-n var(--synhigh-start, 0);
+}
+
+.synhigh .synhigh-line {
+	display: block;
+	min-height: 1.6em;
+	padding: 0 1.1em;
+}
+
+/* ---- Line numbers (generated by CSS, so they are never copied or selected) -------------- */
+.synhigh-numbered .synhigh-line::before {
+	counter-increment: synhigh-n;
+	content: counter(synhigh-n);
+	position: sticky;
+	left: 0;
+	display: inline-block;
+	min-width: 3ch;
+	margin: 0 1.1em 0 -.2em;
+	padding-right: .6em;
+	text-align: right;
+	color: var(--synhigh-lineno);
+	background: var(--synhigh-bg);
+	-webkit-user-select: none;
+	user-select: none;
+	pointer-events: none;
+}
+
+/* ---- Tokens ----------------------------------------------------------------------------- */
+.synhigh .synhigh-comment {
+	color: var(--synhigh-comment);
+	font-style: italic;
+}
+
+.synhigh .synhigh-keyword {
+	color: var(--synhigh-keyword);
+}
+
+.synhigh .synhigh-string {
+	color: var(--synhigh-string);
+}
+
+.synhigh .synhigh-number {
+	color: var(--synhigh-number);
+}
+
+.synhigh .synhigh-fn {
+	color: var(--synhigh-fn);
+}
+
+.synhigh .synhigh-var {
+	color: var(--synhigh-var);
+}
+
+.synhigh .synhigh-type {
+	color: var(--synhigh-type);
+}
+
+.synhigh .synhigh-const {
+	color: var(--synhigh-const);
+}
+
+.synhigh .synhigh-op {
+	color: var(--synhigh-op);
+}
+
+.synhigh .synhigh-punct {
+	color: var(--synhigh-punct);
+}
+
+.synhigh .synhigh-tag {
+	color: var(--synhigh-tag);
+}
+
+.synhigh .synhigh-attr {
+	color: var(--synhigh-attr);
+}
+
+.synhigh .synhigh-builtin {
+	color: var(--synhigh-builtin);
+}
+
+.synhigh .synhigh-meta {
+	color: var(--synhigh-meta);
+}
+
+.synhigh .synhigh-regex {
+	color: var(--synhigh-regex);
+}
+
+.synhigh .synhigh-inserted {
+	color: var(--synhigh-inserted);
+}
+
+.synhigh .synhigh-deleted {
+	color: var(--synhigh-deleted);
+}
+
+@media print {
+	.synhigh .synhigh-copy {
+		display: none;
+	}
+
+	.synhigh pre.synhigh-pre {
+		white-space: pre-wrap;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.synhigh .synhigh-copy {
+		transition: none;
+	}
+}
