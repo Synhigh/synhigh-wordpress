@@ -2,6 +2,24 @@
 
 defined( 'ABSPATH' ) || exit;
 
+/**
+ * Default option values.
+ *
+ * @return array<string,mixed>
+ */
+function synhigh_defaults() {
+	return array(
+		'theme'         => 'auto',
+		'line_numbers'  => 1,
+		'copy_button'   => 1,
+		'show_label'    => 1,
+		'auto_detect'   => 1,
+		'observe'       => 0,
+		'load_all'      => 0,
+		'custom_css'    => '',
+	);
+}
+
 // Setting Page
 function synhigh_add_menu() {
 	add_options_page(
@@ -92,3 +110,16 @@ function synhigh_render_settings() {
 	</div>
 	<?php
 }
+
+function synhigh_register_settings() {
+	register_setting(
+		'synhigh_group',
+		'synhigh_options',
+		array(
+			'type'              => 'array',
+			'sanitize_callback' => 'synhigh_sanitize',
+			'default'           => synhigh_defaults(),
+		)
+	);
+}
+add_action( 'admin_init', 'synhigh_register_settings' );
