@@ -20,6 +20,23 @@ function synhigh_defaults() {
 	);
 }
 
+/**
+ * Available built-in themes (slug => label).
+ *
+ * @return array<string,string>
+ */
+function synhigh_themes() {
+	return apply_filters(
+		'synhigh_themes',
+		array(
+			'auto'  => __( 'Auto (follows visitor light/dark setting)', 'synhigh-code-highlighter' ),
+			'dark'  => __( 'Dark', 'synhigh-code-highlighter' ),
+			'light' => __( 'Light', 'synhigh-code-highlighter' ),
+			'ember' => __( 'Ember', 'synhigh-code-highlighter' ),
+		)
+	);
+}
+
 // Setting Page
 function synhigh_add_menu() {
 	add_options_page(
