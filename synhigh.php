@@ -23,6 +23,7 @@ define('SYNHIGH_INC', SYNHIGH_PATH . 'inc/');
 
 require(SYNHIGH_INC . 'enqueue.php');
 require(SYNHIGH_INC . 'functions.php');
+require(SYNHIGH_INC . 'setting.php');
 
 
 
