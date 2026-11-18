@@ -4,7 +4,7 @@
  * Plugin URI: https://github.com/Synhigh/synhigh-wordpress
  * Description: Lightweight syntax highlighting with auto language detection, line numbers, and a copy button.
  * Version: 1.0.0
- * Requires at least: 7.1
+ * Requires at least: 6.9
  * Requires PHP: 8.0
  * Author: Raymond Baghumian
  * License: GPL-2.0-or-later
@@ -16,7 +16,6 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'SYNHIGH_VERSION', '1.0.0' );
 define( 'SYNHIGH_URL', plugin_dir_url( __FILE__ ) );
 define( 'SYNHIGH_PATH', plugin_dir_path( __FILE__ ) );
 

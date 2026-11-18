@@ -8,15 +8,13 @@ function synhigh_enqueue() {
 	
     wp_enqueue_style( 
         'synhigh', 
-        SYNHIGH_URL . 'css/synhigh.css', 
-        array(), 
+        SYNHIGH_URL . 'css/synhigh.css',  
         SYNHIGH_VERSION 
     );
 
 	wp_enqueue_script(
 		'synhigh',
 		SYNHIGH_URL . 'js/synhigh.js',
-		array(),
 		SYNHIGH_VERSION,
 	);
 
