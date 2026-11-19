@@ -35,5 +35,18 @@ function synhigh_load_textdomain() {
 }
 add_action( 'init', 'synhigh_load_textdomain' );
 
+// Translation files are named by locale only (e.g. fa_IR.mo), so remap the
+// default {text-domain}-{locale}.mo lookup to the plain {locale}.mo file.
+function synhigh_locale_mofile( $mofile, $domain ) {
+	if ( 'synhigh-code-highlighter' === $domain ) {
+		$custom = SYNHIGH_PATH . 'languages/' . determine_locale() . '.mo';
+		if ( is_readable( $custom ) ) {
+			return $custom;
+		}
+	}
+	return $mofile;
+}
+add_filter( 'load_textdomain_mofile', 'synhigh_locale_mofile', 10, 2 );
+
 
 
