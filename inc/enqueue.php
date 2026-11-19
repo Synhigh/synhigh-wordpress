@@ -18,19 +18,22 @@ function synhigh_enqueue() {
 	$themes = synhigh_themes();
 	$theme  = isset( $themes[ $opts['theme'] ] ) ? $opts['theme'] : 'auto';
 
-    if ( '' !== trim( (string) $opts['custom_css'] ) ) {
-		wp_add_inline_style( 'synhigh', wp_strip_all_tags( $opts['custom_css'] ) );
-	}
-	
-    wp_enqueue_style( 
-        'synhigh_css', 
-        SYNHIGH_URL . 'css/synhigh.css',  
-        SYNHIGH_VERSION 
+    wp_enqueue_style(
+        'synhigh_css',
+        SYNHIGH_URL . 'css/synhigh.css',
+        array(),
+        SYNHIGH_VERSION
     );
+
+    // Inline CSS must target the registered handle and be added after enqueue.
+    if ( '' !== trim( (string) $opts['custom_css'] ) ) {
+		wp_add_inline_style( 'synhigh_css', wp_strip_all_tags( $opts['custom_css'] ) );
+	}
 
 	wp_enqueue_script(
 		'synhigh_js',
 		SYNHIGH_URL . 'js/synhigh.js',
+		array(),
 		SYNHIGH_VERSION,
         array(
 			'in_footer' => true,
@@ -55,7 +58,7 @@ function synhigh_enqueue() {
 			),
 		)
 	);
-	wp_add_inline_script( 'synhigh', 'window.SynhighConfig=' . wp_json_encode( $config ) . ';', 'before' );
+	wp_add_inline_script( 'synhigh_js', 'window.SynhighConfig=' . wp_json_encode( $config ) . ';', 'before' );
 
 }
 add_action( 'wp_enqueue_scripts', 'synhigh_enqueue' );
