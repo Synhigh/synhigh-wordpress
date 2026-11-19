@@ -67,6 +67,26 @@ function synhigh_needs_assets() {
 	return false;
 }
 
+/**
+ * Sanitize the settings array.
+ *
+ * @param mixed $input Raw submitted value.
+ * @return array<string,mixed>
+ */
+function synhigh_sanitize( $input ) {
+	$input  = is_array( $input ) ? $input : array();
+	$themes = synhigh_themes();
+	$out    = array();
+
+	$out['theme'] = ( isset( $input['theme'] ) && isset( $themes[ $input['theme'] ] ) ) ? $input['theme'] : 'auto';
+	foreach ( array( 'line_numbers', 'copy_button', 'show_label', 'auto_detect', 'observe', 'load_all' ) as $flag ) {
+		$out[ $flag ] = empty( $input[ $flag ] ) ? 0 : 1;
+	}
+	$out['custom_css'] = isset( $input['custom_css'] ) ? wp_strip_all_tags( wp_unslash( $input['custom_css'] ) ) : '';
+	return $out;
+}
+
+
 // Setting Page
 function synhigh_add_menu() {
 	add_options_page(
