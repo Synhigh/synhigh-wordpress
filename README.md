@@ -115,3 +115,24 @@ Front-end configuration is read from `window.SynhighConfig`, printed before the 
 ## Uninstall
 
 Deleting the plugin from the WordPress admin removes the `synhigh_options` option no leftover data.
+
+# Screenshots
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col" width="1000px">Code Highlighter</th>
+      <th scope="col" width="1000px">Admin Code Highlighter</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <img src="./screenshots/code.png" width="100%" alt="Admin Index">
+      </td>
+      <td>
+        <img src="./screenshots/admin.png" width="100%" alt="Users">
+      </td>
+    </tr>
+  </tbody>
+</table>
