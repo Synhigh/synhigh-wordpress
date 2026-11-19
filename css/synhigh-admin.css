@@ -1,0 +1,117 @@
+/**
+ * Settings page tabs (admin only).
+ * Panels stay visible without JS; the .synhigh-tabs-ready class is added
+ * by synhigh-admin.js so inactive panels are hidden only when tabs work.
+ */
+
+.synhigh-tabs {
+	margin-top: 16px;
+}
+
+.synhigh-tabs .nav-tab-wrapper {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 4px;
+	border-bottom: 1px solid #c3c4c7;
+	padding-bottom: 0;
+}
+
+.synhigh-tabs .nav-tab {
+	position: relative;
+	margin: 0;
+	border: 1px solid transparent;
+	border-bottom: none;
+	border-radius: 4px 4px 0 0;
+	background: transparent;
+	color: #50575e;
+	font-weight: 500;
+	transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+.synhigh-tabs .nav-tab:hover,
+.synhigh-tabs .nav-tab:focus {
+	color: #1d2327;
+	background: #f0f0f1;
+	box-shadow: none;
+}
+
+.synhigh-tabs .nav-tab-active,
+.synhigh-tabs .nav-tab-active:hover,
+.synhigh-tabs .nav-tab-active:focus {
+	border-color: #c3c4c7;
+	border-bottom: 1px solid #fff;
+	margin-bottom: -1px;
+	background: #fff;
+	color: #1d2327;
+}
+
+.synhigh-tabs .nav-tab-active::after {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 3px;
+	border-radius: 4px 4px 0 0;
+	background: #2271b1;
+}
+
+.synhigh-tabs .synhigh-panel {
+	background: #fff;
+	border: 1px solid #c3c4c7;
+	border-top: none;
+	padding: 8px 24px 24px;
+}
+
+.synhigh-tabs-ready .synhigh-panel[hidden] {
+	display: none;
+}
+
+.synhigh-tabs-ready .synhigh-panel:not([hidden]) {
+	animation: synhigh-panel-in 0.18s ease-out;
+}
+
+@keyframes synhigh-panel-in {
+	from {
+		opacity: 0;
+		transform: translateY(4px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.synhigh-tabs .synhigh-panel .form-table th {
+	width: 220px;
+}
+
+.synhigh-tabs .synhigh-submit {
+	padding: 10px;
+	background: #fff;
+	border: 1px solid #c3c4c7;
+	border-top: none;
+}
+
+.synhigh-tabs .synhigh-submit .submit {
+	margin: 0;
+	padding: 0;
+}
+
+.synhigh-panel-usage h2 {
+	margin-top: 16px;
+}
+
+@media screen and (max-width: 600px) {
+	.synhigh-tabs .synhigh-panel {
+		padding: 4px 16px 16px;
+	}
+
+	.synhigh-tabs .synhigh-panel .form-table th {
+		width: auto;
+	}
+
+	.synhigh-tabs .synhigh-submit {
+		padding: 0 16px 16px;
+	}
+}
