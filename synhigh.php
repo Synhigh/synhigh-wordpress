@@ -25,5 +25,15 @@ require(SYNHIGH_INC . 'enqueue.php');
 require(SYNHIGH_INC . 'functions.php');
 require(SYNHIGH_INC . 'setting.php');
 
+// Load translations from the plugin's languages directory.
+function synhigh_load_textdomain() {
+	load_plugin_textdomain(
+		'synhigh-code-highlighter',
+		false,
+		dirname( plugin_basename( __FILE__ ) ) . '/languages'
+	);
+}
+add_action( 'init', 'synhigh_load_textdomain' );
+
 
 
