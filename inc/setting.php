@@ -37,6 +37,36 @@ function synhigh_themes() {
 	);
 }
 
+/**
+ * Whether the current request needs the highlighter.
+ *
+ * @return bool
+ */
+function synhigh_needs_assets() {
+	$opts = synhigh_options();
+	if ( ! empty( $opts['load_all'] ) ) {
+		return true;
+	}
+	$post = get_post();
+	if ( is_singular() && $post instanceof WP_Post ) {
+		return has_block( 'core/code', $post )
+			|| has_block( 'core/preformatted', $post )
+			|| false !== strpos( $post->post_content, '<pre' );
+	}
+	// Archives and the blog index render many posts; load there too if any shown post has a <pre>.
+	if ( is_home() || is_archive() || is_search() ) {
+		global $wp_query;
+		if ( $wp_query instanceof WP_Query && ! empty( $wp_query->posts ) ) {
+			foreach ( $wp_query->posts as $p ) {
+				if ( false !== strpos( $p->post_content, '<pre' ) ) {
+					return true;
+				}
+			}
+		}
+	}
+	return false;
+}
+
 // Setting Page
 function synhigh_add_menu() {
 	add_options_page(
