@@ -1,3 +1,5 @@
+<p align="center"><img src="https://raw.githubusercontent.com/Synhigh/synhigh-code-highlighter/refs/heads/main/logo/logo.png" alt="Synhigh" width="150"></p>
+
 # Synhigh Code Highlighter
 
 Lightweight syntax highlighting for WordPress with auto language detection, line numbers, and a copy button.
