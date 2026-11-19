@@ -9,5 +9,5 @@ defined( 'ABSPATH' ) || exit;
  */
 function synhigh_options() {
 	$saved = get_option( 'synhigh_options', array() );
-	return wp_parse_args( is_array( $saved ) ? $saved : array() );
+	return wp_parse_args( is_array( $saved ) ? $saved : array(), synhigh_defaults() );
 }
