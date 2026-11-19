@@ -71,43 +71,51 @@ msgstr "روشن"
 msgid "Ember"
 msgstr "Ember"
 
-#: inc/setting.php:93 inc/setting.php:94 inc/setting.php:119
+#: inc/setting.php:93 inc/setting.php:94 inc/setting.php:135
 msgid "Code Highlighter"
 msgstr "هایلایتر کد"
 
-#: inc/setting.php:124
+#: inc/setting.php:128
+msgid "General"
+msgstr "عمومی"
+
+#: inc/setting.php:137
+msgid "Settings sections"
+msgstr "بخش‌ های تنظیمات"
+
+#: inc/setting.php:148
 msgid "Theme"
 msgstr "پوسته"
 
-#: inc/setting.php:134
+#: inc/setting.php:158
 msgid "Features"
 msgstr "امکانات"
 
-#: inc/setting.php:138
+#: inc/setting.php:162
 msgid "Show line numbers"
 msgstr "نمایش شمارهٔ خطوط"
 
-#: inc/setting.php:140
+#: inc/setting.php:164
 msgid "Show a copy button"
 msgstr "نمایش دکمهٔ کپی"
 
-#: inc/setting.php:142
+#: inc/setting.php:166
 msgid "Show the language label"
 msgstr "نمایش برچسب زبان"
 
-#: inc/setting.php:144
+#: inc/setting.php:168
 msgid "Detect the language automatically when no class is set"
 msgstr "تشخیص خودکار زبان هنگامی که کلاسی تنظیم نشده باشد"
 
-#: inc/setting.php:150
+#: inc/setting.php:129 inc/setting.php:179
 msgid "Loading"
 msgstr "بارگذاری"
 
-#: inc/setting.php:154
+#: inc/setting.php:183
 msgid "Load on every page"
 msgstr "بارگذاری در همهٔ برگه‌ ها"
 
-#: inc/setting.php:154
+#: inc/setting.php:183
 msgid ""
 "By default the scripts load only on pages whose content contains a code "
 "block."
@@ -115,29 +123,29 @@ msgstr ""
 "به‌طور پیش‌ فرض، اسکریپت‌ ها فقط در برگه‌ هایی بارگذاری می‌شوند که محتوای "
 "آنها شامل یک بلوک کد باشد."
 
-#: inc/setting.php:156
+#: inc/setting.php:185
 msgid "Watch for content added after page load"
 msgstr "رصد محتوای افزوده‌ شده پس از بارگذاری برگه"
 
-#: inc/setting.php:156
+#: inc/setting.php:185
 msgid "Needed for infinite scroll or AJAX page transitions."
 msgstr "برای پیمایش بی‌ نهایت یا جابه‌جایی برگه ‌ها با ایجکس لازم است."
 
-#: inc/setting.php:162
+#: inc/setting.php:130 inc/setting.php:196
 msgid "Custom CSS"
 msgstr "استایل سفارشی"
 
-#: inc/setting.php:166
+#: inc/setting.php:200
 msgid "Override any color for every theme using CSS variables, for example:"
 msgstr ""
 "هر رنگی را برای همهٔ پوسته ‌ها با استفاده از متغیرهای CSS بازنویسی کنید، "
 "برای مثال:"
 
-#: inc/setting.php:175
+#: inc/setting.php:131 inc/setting.php:209
 msgid "Usage"
 msgstr "روش استفاده"
 
-#: inc/setting.php:176
+#: inc/setting.php:210
 msgid ""
 "Add a Code block, then enter a class such as language-php in the block's "
 "Advanced > Additional CSS class field. Without a class, the language is "
