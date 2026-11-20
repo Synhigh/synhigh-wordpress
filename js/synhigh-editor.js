@@ -13,6 +13,7 @@
 	var overlay = null;
 	var langSelect = null;
 	var codeArea = null;
+	var codeGutter = null;
 	var activeEditor = null;
 	var lastFocus = null;
 
@@ -83,6 +84,20 @@
 		}
 	}
 
+	// Rebuild the line-number column and keep it aligned with the textarea.
+	function updateLineNumbers() {
+		if ( ! codeGutter || ! codeArea ) {
+			return;
+		}
+		var count = codeArea.value.split( '\n' ).length;
+		var numbers = [];
+		for ( var i = 1; i <= count; i++ ) {
+			numbers.push( i );
+		}
+		codeGutter.textContent = numbers.join( '\n' );
+		codeGutter.scrollTop = codeArea.scrollTop;
+	}
+
 	function build() {
 		overlay = document.createElement( 'div' );
 		overlay.className = 'synhigh-editor-overlay';
@@ -118,12 +133,33 @@
 		var codeLabel = document.createElement( 'label' );
 		codeLabel.className = 'synhigh-editor-label';
 		codeLabel.textContent = t( 'code', 'Code' );
+
+		var codeWrap = document.createElement( 'div' );
+		codeWrap.className = 'synhigh-editor-code-wrap';
+
+		codeGutter = document.createElement( 'div' );
+		codeGutter.className = 'synhigh-editor-gutter';
+		codeGutter.setAttribute( 'aria-hidden', 'true' );
+		codeGutter.textContent = '1';
+
 		codeArea = document.createElement( 'textarea' );
 		codeArea.className = 'synhigh-editor-code';
 		codeArea.rows = 12;
 		codeArea.spellcheck = false;
+		codeArea.setAttribute( 'wrap', 'off' );
+		codeArea.setAttribute( 'autocomplete', 'off' );
+		codeArea.setAttribute( 'autocapitalize', 'off' );
+		codeArea.setAttribute( 'autocorrect', 'off' );
 		codeArea.placeholder = t( 'placeholder', 'Paste or type your code here.' );
-		codeLabel.appendChild( codeArea );
+
+		codeArea.addEventListener( 'input', updateLineNumbers );
+		codeArea.addEventListener( 'scroll', function () {
+			codeGutter.scrollTop = codeArea.scrollTop;
+		} );
+
+		codeWrap.appendChild( codeGutter );
+		codeWrap.appendChild( codeArea );
+		codeLabel.appendChild( codeWrap );
 		dialog.appendChild( codeLabel );
 
 		// Keep tabs inside the code instead of moving focus.
@@ -136,6 +172,7 @@
 			var end = codeArea.selectionEnd;
 			codeArea.value = codeArea.value.slice( 0, start ) + '\t' + codeArea.value.slice( end );
 			codeArea.selectionStart = codeArea.selectionEnd = start + 1;
+			updateLineNumbers();
 		} );
 
 		var actions = document.createElement( 'div' );
@@ -182,6 +219,9 @@
 		activeEditor = editor || null;
 		lastFocus = document.activeElement;
 		codeArea.value = selectedText();
+		updateLineNumbers();
+		codeArea.scrollTop = 0;
+		codeGutter.scrollTop = 0;
 		overlay.hidden = false;
 		document.addEventListener( 'keydown', onKeydown );
 		codeArea.focus();
