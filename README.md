@@ -100,7 +100,7 @@ Override any color for every theme using CSS variables:
 
 ```css
 .synhigh {
-	--synhigh-bg: #0b1d2a;
+  --synhigh-bg: #0b1d2a;
 	--synhigh-keyword: #ff9e64;
 }
 ```
