@@ -1,7 +1,7 @@
 <?php
 
 defined( 'ABSPATH' ) || exit;
-define( 'SYNHIGH_VERSION', '1.0.0' );
+define( 'SYNHIGH_VERSION', '1.1.0' );
 
 // Calling Files
 function synhigh_enqueue() {
