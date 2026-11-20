@@ -154,3 +154,55 @@ msgstr ""
 "یک بلوک کد اضافه کنید، سپس کلاسی مانند language-php را در فیلد «پیشرفته > "
 "کلاس CSS اضافیِ» بلوک وارد کنید. بدون کلاس، زبان به‌ طور خودکار تشخیص داده "
 "می‌شود. برای نادیده گرفتن یک بلوک، از کلاس nohighlight استفاده کنید."
+
+#: inc/setting.php
+msgid "Add a code insertion button to the Classic Editor"
+msgstr "افزودن دکمهٔ درج کد به ویرایشگر کلاسیک"
+
+#: inc/setting.php
+msgid ""
+"Shows an \"Insert code block\" button in the Visual toolbar and a code "
+"quicktag in the Text toolbar."
+msgstr ""
+"دکمهٔ «درج بلوک کد» را در نوار ابزار دیداری و یک برچسب سریع کد را در نوار "
+"ابزار متنی نمایش می‌دهد."
+
+#: inc/setting.php
+msgid ""
+"In the Classic Editor, use the \"Insert code block\" button in the toolbar "
+"to pick a language and insert highlighted code."
+msgstr ""
+"در ویرایشگر کلاسیک، از دکمهٔ «درج بلوک کد» در نوار ابزار برای انتخاب زبان و "
+"درج کد رنگی استفاده کنید."
+
+#: inc/classic-editor.php
+msgid "Auto-detect"
+msgstr "تشخیص خودکار"
+
+#: inc/classic-editor.php
+msgid "Insert code block"
+msgstr "درج بلوک کد"
+
+#: inc/classic-editor.php
+msgid "Language"
+msgstr "زبان"
+
+#: inc/classic-editor.php
+msgid "Code"
+msgstr "کد"
+
+#: inc/classic-editor.php
+msgid "Paste or type your code here."
+msgstr "کد خود را اینجا جای‌گذاری یا تایپ کنید."
+
+#: inc/classic-editor.php
+msgid "Insert"
+msgstr "درج"
+
+#: inc/classic-editor.php
+msgid "Cancel"
+msgstr "انصراف"
+
+#: inc/classic-editor.php
+msgid "code"
+msgstr "کد"

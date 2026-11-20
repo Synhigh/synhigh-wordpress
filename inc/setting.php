@@ -16,6 +16,7 @@ function synhigh_defaults() {
 		'auto_detect'   => 1,
 		'observe'       => 0,
 		'load_all'      => 0,
+		'classic_editor_button' => 1,
 		'custom_css'    => '',
 	);
 }
@@ -79,7 +80,7 @@ function synhigh_sanitize( $input ) {
 	$out    = array();
 
 	$out['theme'] = ( isset( $input['theme'] ) && isset( $themes[ $input['theme'] ] ) ) ? $input['theme'] : 'auto';
-	foreach ( array( 'line_numbers', 'copy_button', 'show_label', 'auto_detect', 'observe', 'load_all' ) as $flag ) {
+	foreach ( array( 'line_numbers', 'copy_button', 'show_label', 'auto_detect', 'observe', 'load_all', 'classic_editor_button' ) as $flag ) {
 		$out[ $flag ] = empty( $input[ $flag ] ) ? 0 : 1;
 	}
 	$out['custom_css'] = isset( $input['custom_css'] ) ? wp_strip_all_tags( wp_unslash( $input['custom_css'] ) ) : '';
@@ -166,6 +167,8 @@ function synhigh_render_settings() {
 									$checkbox( 'show_label', __( 'Show the language label', 'synhigh-code-highlighter' ) );
 									echo '<br>';
 									$checkbox( 'auto_detect', __( 'Detect the language automatically when no class is set', 'synhigh-code-highlighter' ) );
+									echo '<br>';
+									$checkbox( 'classic_editor_button', __( 'Add a code insertion button to the Classic Editor', 'synhigh-code-highlighter' ), __( 'Shows an "Insert code block" button in the Visual toolbar and a code quicktag in the Text toolbar.', 'synhigh-code-highlighter' ) );
 									?>
 								</fieldset>
 							</td>
@@ -208,6 +211,7 @@ function synhigh_render_settings() {
 				<div id="synhigh-panel-usage" class="synhigh-panel synhigh-panel-usage" role="tabpanel">
 					<h2><?php esc_html_e( 'Usage', 'synhigh-code-highlighter' ); ?></h2>
 					<p><?php esc_html_e( 'Add a Code block, then enter a class such as language-php in the block\'s Advanced > Additional CSS class field. Without a class, the language is detected automatically. Use the class nohighlight to skip a block.', 'synhigh-code-highlighter' ); ?></p>
+					<p><?php esc_html_e( 'In the Classic Editor, use the "Insert code block" button in the toolbar to pick a language and insert highlighted code.', 'synhigh-code-highlighter' ); ?></p>
 				</div>
 
 				<div class="synhigh-submit">

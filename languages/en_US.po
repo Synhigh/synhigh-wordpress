@@ -145,3 +145,51 @@ msgid ""
 "Advanced > Additional CSS class field. Without a class, the language is "
 "detected automatically. Use the class nohighlight to skip a block."
 msgstr ""
+
+#: inc/setting.php
+msgid "Add a code insertion button to the Classic Editor"
+msgstr ""
+
+#: inc/setting.php
+msgid ""
+"Shows an \"Insert code block\" button in the Visual toolbar and a code "
+"quicktag in the Text toolbar."
+msgstr ""
+
+#: inc/setting.php
+msgid ""
+"In the Classic Editor, use the \"Insert code block\" button in the toolbar "
+"to pick a language and insert highlighted code."
+msgstr ""
+
+#: inc/classic-editor.php
+msgid "Auto-detect"
+msgstr ""
+
+#: inc/classic-editor.php
+msgid "Insert code block"
+msgstr ""
+
+#: inc/classic-editor.php
+msgid "Language"
+msgstr ""
+
+#: inc/classic-editor.php
+msgid "Code"
+msgstr ""
+
+#: inc/classic-editor.php
+msgid "Paste or type your code here."
+msgstr ""
+
+#: inc/classic-editor.php
+msgid "Insert"
+msgstr ""
+
+#: inc/classic-editor.php
+msgid "Cancel"
+msgstr ""
+
+#: inc/classic-editor.php
+msgid "code"
+msgstr ""
